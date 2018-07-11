@@ -25,9 +25,6 @@ class MainActivity : AppCompatActivity() {
         // Creates a vertical Layout Manager
         myRecyclerView.layoutManager = LinearLayoutManager(this)
 
-        // You can use GridLayoutManager if you want multiple columns. Enter the number of columns as a parameter.
-//        rv_animal_list.layoutManager = GridLayoutManager(this, 2)
-
         // Access the RecyclerView Adapter and load the data into it
         adapter = RecyclerViewAdapter(null, this)
         myRecyclerView.adapter = adapter
@@ -36,14 +33,11 @@ class MainActivity : AppCompatActivity() {
         myRecyclerView.addItemDecoration(dividerItemDecoration)
 
         fab.setOnClickListener {
-            // your code to perform when the user clicks on the button
             LLog.d("test");
             LLog.e("error?")
         }
 
-        val viewModel: ListViewModel
-        viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
-
+        val viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
         viewModel.getLogs().observe(this, Observer<List<MobileLog>> { resource ->
             adapter.setList(resource)
         })
