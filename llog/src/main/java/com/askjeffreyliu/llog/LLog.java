@@ -1,13 +1,27 @@
 package com.askjeffreyliu.llog;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import java.util.List;
 
 public final class LLog {
 
     private static Context mContext;
     private static String mTag;
+
+    private static LLog INSTANCE = new LLog();
+
+    // other instance variables can be here
+
+    private LLog() {
+    }
+
+    public static LLog getInstance() {
+        return (INSTANCE);
+    }
 
     public static void setContext(Context context, String tag) {
         mContext = context;
@@ -16,16 +30,16 @@ public final class LLog {
 
     public static synchronized void d(String msg) {
         Log.d(mTag, msg);
-        test(msg);
+        saveLog(msg);
     }
 
     public static synchronized void e(String msg) {
         Log.e(mTag, msg);
-        test(msg);
+        saveLog(msg);
     }
 
 
-    private static void test(final String msg) {
+    private static void saveLog(final String msg) {
         final String threadName = Thread.currentThread().getName();
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -35,5 +49,10 @@ public final class LLog {
                 return null;
             }
         }.execute();
+    }
+
+    public LiveData<List<MobileLog>> getLogs() {
+        MobileLogRoomDatabase db = MobileLogRoomDatabase.getDatabase(mContext);
+        return db.mobileLogDao().getLogs();
     }
 }

@@ -6,13 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.askjeffreyliu.llog.MobileLog
 import kotlinx.android.synthetic.main.list_item.view.*
 
-class AnimalAdapter(val items: ArrayList<String>, val context: Context) : RecyclerView.Adapter<ViewHolder>() {
+class RecyclerViewAdapter(private var items: List<MobileLog>?, val context: Context) : RecyclerView.Adapter<ViewHolder>() {
 
     // Gets the number of animals in the list
     override fun getItemCount(): Int {
-        return items.size
+        if (items == null) {
+            return 0
+        }
+        return items!!.size
     }
 
     // Inflates the item views
@@ -22,7 +26,12 @@ class AnimalAdapter(val items: ArrayList<String>, val context: Context) : Recycl
 
     // Binds each animal in the ArrayList to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.myTextView.text = items[position]
+        holder.myTextView.text = items!![position].id.toString() + " " + items!![position].message
+    }
+
+    fun setList(log: List<MobileLog>?) {
+        items = log
+        notifyDataSetChanged()
     }
 }
 
