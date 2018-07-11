@@ -37,7 +37,7 @@ In your Application class
 LLog.setContext(this, "JLOG");
 ```
 
-And for just black and white image:
+And actually logging:
 ```java
 LLog.d("test")
 LLog.e("error")
