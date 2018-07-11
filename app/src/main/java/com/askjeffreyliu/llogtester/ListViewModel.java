@@ -15,7 +15,7 @@ public class ListViewModel extends AndroidViewModel {
 
     public ListViewModel(Application application) {
         super(application);
-        logs = LLog.getInstance().getLogs();
+        logs = LLog.getLogs();
     }
 
     public LiveData<List<MobileLog>> getLogs() {

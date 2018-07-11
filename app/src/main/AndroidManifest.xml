@@ -3,7 +3,7 @@
     package="com.askjeffreyliu.llogtester">
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:name=".MyApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

@@ -20,6 +20,10 @@ public class MobileLog {
     private String thread;
 
     @NonNull
+    @ColumnInfo(name = "logLevel")
+    private int logLevel;
+
+    @NonNull
     @ColumnInfo(name = "synced")
     private boolean synced;
 
@@ -27,11 +31,12 @@ public class MobileLog {
     @ColumnInfo(name = "timestamp")
     private long timestamp;
 
-    public MobileLog(@NonNull String message, @NonNull String thread) {
+    public MobileLog(@NonNull String message, @NonNull String thread, @NonNull int logLevel) {
         this.message = message;
         this.thread = thread;
+        this.logLevel = logLevel;
         synced = false;
-        timestamp = System.currentTimeMillis() / 1000;
+        timestamp = System.currentTimeMillis();
     }
 
     public int getId() {
@@ -58,6 +63,15 @@ public class MobileLog {
 
     public void setThread(@NonNull String thread) {
         this.thread = thread;
+    }
+
+
+    public int getLogLevel() {
+        return logLevel;
+    }
+
+    public void setLogLevel(int logLevel) {
+        this.logLevel = logLevel;
     }
 
     @NonNull

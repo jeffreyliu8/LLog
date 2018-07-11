@@ -33,8 +33,12 @@ class MainActivity : AppCompatActivity() {
         myRecyclerView.addItemDecoration(dividerItemDecoration)
 
         fab.setOnClickListener {
-            LLog.d("test");
+            LLog.d("test")
             LLog.e("error?")
+        }
+
+        fabClear.setOnClickListener {
+            LLog.clearLogs()
         }
 
         val viewModel = ViewModelProviders.of(this).get(ListViewModel::class.java)
