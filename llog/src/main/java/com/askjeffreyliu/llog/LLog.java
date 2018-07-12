@@ -22,17 +22,19 @@ public final class LLog {
     private static boolean mLogForProduction = false;
     private static boolean mShowBox = true;
     private static boolean mShowLineInfo = true;
+    private static boolean mSave = true;
 
     private static final String PREFIX = "<[ ";
     private static final String POSTFIX = " ]>";
 
-    public static void init(Context context, String tag, boolean showBox, boolean showLineInfo, boolean logForProduction) {
+    public static void init(Context context, String tag, boolean doSave, boolean showBox, boolean showLineInfo, boolean logForProduction) {
         mContext = context;
         mTag = tag;
         mLogForProduction = false;
         mShowBox = showBox;
         mShowLineInfo = showLineInfo;
         mLogForProduction = logForProduction;
+        mSave = doSave;
     }
 
     public static synchronized void v(String msg) {
@@ -194,15 +196,17 @@ public final class LLog {
     }
 
     private static void saveLog(final String msg, final int logLevel, final Throwable throwable) {
-        final String threadName = Thread.currentThread().getName();
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                MobileLogRoomDatabase db = MobileLogRoomDatabase.getDatabase(mContext);
-                db.mobileLogDao().insert(new MobileLog(msg, threadName, logLevel, throwable == null ? null : throwable.toString()));
-                return null;
-            }
-        }.execute();
+        if (mSave) {
+            final String threadName = Thread.currentThread().getName();
+            new AsyncTask<Void, Void, Void>() {
+                @Override
+                protected Void doInBackground(Void... voids) {
+                    MobileLogRoomDatabase db = MobileLogRoomDatabase.getDatabase(mContext);
+                    db.mobileLogDao().insert(new MobileLog(msg, threadName, logLevel, throwable == null ? null : throwable.toString()));
+                    return null;
+                }
+            }.execute();
+        }
     }
 
     public static LiveData<List<MobileLog>> getLogs() {
@@ -240,17 +244,23 @@ public final class LLog {
     public final static class Builder {
         private String mTag;
         private Context mContext;
+        private boolean mSave = true;
         private boolean mShowBox = true;
         private boolean mShowLineInfo = true;
         private boolean mLogForProduction = false;
+
+        public Builder setContext(final Context context) {
+            mContext = context;
+            return this;
+        }
 
         public Builder setTag(final String tag) {
             mTag = tag;
             return this;
         }
 
-        public Builder setContext(final Context context) {
-            mContext = context;
+        public Builder enableSaving(final boolean enable) {
+            mSave = enable;
             return this;
         }
 
@@ -284,7 +294,7 @@ public final class LLog {
             if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.M && mTag.length() > 23) {
                 throw new IllegalArgumentException("tag can't be longer than 23 for Nougat (7.0) releases (API <= 23) and prior");
             }
-            LLog.init(mContext, mTag, mShowBox, mShowLineInfo, mLogForProduction);
+            LLog.init(mContext, mTag, mSave, mShowBox, mShowLineInfo, mLogForProduction);
         }
     }
 }

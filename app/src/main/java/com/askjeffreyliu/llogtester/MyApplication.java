@@ -15,6 +15,7 @@ public class MyApplication extends Application {
         new LLog.Builder()
                 .setContext(this) // required
                 .setTag("LiuLog") // required
+                .enableSaving(true) // default true, optional
                 .enableBorder(true) // default true, optional
                 .enableLineInfo(true)// default true, optional
                 .enableProductionLogging(false) // default false, optional. Every time you set this to true, a puppy dies
