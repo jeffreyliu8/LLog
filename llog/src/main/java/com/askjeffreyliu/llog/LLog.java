@@ -230,9 +230,11 @@ public final class LLog {
 
     private static String getLineInfo() {
         if (mShowLineInfo) {
+            String threadName = Thread.currentThread().getName();
             StackTraceElement[] elements = Thread.currentThread().getStackTrace();
             StackTraceElement s = elements[4];
-            return " @ " + s.getClassName() + "." + s.getMethodName() + "(" + s.getFileName() + ":" + s.getLineNumber() + ")";
+            return " Thread: " + threadName + " @ " + s.getClassName() + "." + s.getMethodName()
+                    + "(" + s.getFileName() + ":" + s.getLineNumber() + ")";
         }
         return "";
     }

@@ -24,7 +24,7 @@ Using LLog
 ##### Dependencies
 ```groovy
 	dependencies {
-	        implementation 'com.github.jeffreyliu8:LLog:0.0.7'
+	        implementation 'com.github.jeffreyliu8:LLog:0.0.8'
 	}
 ```
 
