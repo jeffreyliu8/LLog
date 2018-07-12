@@ -20,7 +20,7 @@ public final class LLog {
     private static Context mContext;
     private static String mTag;
     private static boolean mLogForProduction = false;
-
+    private static boolean mShowBox = true;
 
     /**
      * @throws IllegalArgumentException is thrown if the tag.length() > 23
@@ -28,7 +28,10 @@ public final class LLog {
      *                                  tag limit of concern after this API level.
      */
 
-    public static void setContext(Context context, String tag) {
+    public static void setContext(Context context, String tag, boolean showBox) {
+        if (context == null) {
+            throw new IllegalArgumentException("context is null");
+        }
         if (TextUtils.isEmpty(tag)) {
             throw new IllegalArgumentException("empty or null tag");
         }
@@ -38,96 +41,145 @@ public final class LLog {
         mContext = context;
         mTag = tag;
         mLogForProduction = false;
+        mShowBox = showBox;
     }
 
     /**
      * every time you set logForProduction to true, a puppy dies
      */
-    public static void setContext(Context context, String tag, boolean logForProduction) {
-        setContext(context, tag);
+    public static void setContext(Context context, String tag, boolean showBox, boolean logForProduction) {
+        setContext(context, tag, showBox);
         mLogForProduction = logForProduction;
     }
 
     public static synchronized void v(String msg) {
         if (BuildConfig.DEBUG || mLogForProduction) {
-            Log.v(mTag, msg);
+            if (mShowBox) {
+                Log.v(mTag, "[ " + msg + " ]");
+            } else {
+                Log.v(mTag, msg);
+            }
         }
         saveLog(msg, VERBOSE, null);
     }
 
     public static synchronized void v(String msg, Throwable throwable) {
         if (BuildConfig.DEBUG || mLogForProduction) {
-            Log.v(mTag, msg, throwable);
+            if (mShowBox) {
+                Log.v(mTag, "[ " + msg + " ]", throwable);
+            } else {
+                Log.v(mTag, msg, throwable);
+            }
         }
         saveLog(msg, VERBOSE, throwable);
     }
 
     public static synchronized void d(String msg) {
         if (BuildConfig.DEBUG || mLogForProduction) {
-            Log.d(mTag, msg);
+            if (mShowBox) {
+                Log.d(mTag, "[ " + msg + " ]");
+            } else {
+                Log.d(mTag, msg);
+            }
         }
         saveLog(msg, DEBUG, null);
     }
 
     public static synchronized void d(String msg, Throwable throwable) {
         if (BuildConfig.DEBUG || mLogForProduction) {
-            Log.d(mTag, msg);
+            if (mShowBox) {
+                Log.d(mTag, "[ " + msg + " ]", throwable);
+            } else {
+                Log.d(mTag, msg, throwable);
+            }
         }
         saveLog(msg, DEBUG, throwable);
     }
 
     public static synchronized void i(String msg) {
         if (BuildConfig.DEBUG || mLogForProduction) {
-            Log.i(mTag, msg);
+            if (mShowBox) {
+                Log.i(mTag, "[ " + msg + " ]");
+            } else {
+                Log.i(mTag, msg);
+            }
         }
         saveLog(msg, INFO, null);
     }
 
     public static synchronized void i(String msg, Throwable throwable) {
         if (BuildConfig.DEBUG || mLogForProduction) {
-            Log.i(mTag, msg);
+            if (mShowBox) {
+                Log.i(mTag, "[ " + msg + " ]", throwable);
+            } else {
+                Log.i(mTag, msg, throwable);
+            }
         }
         saveLog(msg, INFO, throwable);
     }
 
     public static synchronized void w(String msg) {
         if (BuildConfig.DEBUG || mLogForProduction) {
-            Log.w(mTag, msg);
+            if (mShowBox) {
+                Log.w(mTag, "[ " + msg + " ]");
+            } else {
+                Log.w(mTag, msg);
+            }
         }
         saveLog(msg, WARN, null);
     }
 
     public static synchronized void w(String msg, Throwable throwable) {
         if (BuildConfig.DEBUG || mLogForProduction) {
-            Log.w(mTag, msg);
+            if (mShowBox) {
+                Log.w(mTag, "[ " + msg + " ]", throwable);
+            } else {
+                Log.w(mTag, msg, throwable);
+            }
         }
         saveLog(msg, WARN, throwable);
     }
 
     public static synchronized void e(String msg) {
         if (BuildConfig.DEBUG || mLogForProduction) {
-            Log.e(mTag, msg);
+            if (mShowBox) {
+                Log.e(mTag, "[ " + msg + " ]");
+            } else {
+                Log.e(mTag, msg);
+            }
         }
         saveLog(msg, ERROR, null);
     }
 
     public static synchronized void e(String msg, Throwable throwable) {
         if (BuildConfig.DEBUG || mLogForProduction) {
-            Log.e(mTag, msg);
+            if (mShowBox) {
+                Log.e(mTag, "[ " + msg + " ]", throwable);
+            } else {
+                Log.e(mTag, msg, throwable);
+            }
         }
         saveLog(msg, ERROR, throwable);
     }
 
     public static synchronized void wtf(String msg) {
         if (BuildConfig.DEBUG || mLogForProduction) {
-            Log.wtf(mTag, msg);
+            if (mShowBox) {
+                Log.wtf(mTag, "[ " + msg + " ]");
+            } else {
+                Log.wtf(mTag, msg);
+            }
         }
         saveLog(msg, ASSERT, null);
     }
 
     public static synchronized void wtf(String msg, Throwable throwable) {
         if (BuildConfig.DEBUG || mLogForProduction) {
-            Log.wtf(mTag, msg);
+            if (mShowBox) {
+                Log.wtf(mTag, "[ " + msg + " ]", throwable);
+            } else {
+                Log.wtf(mTag, msg, throwable);
+            }
         }
         saveLog(msg, ASSERT, throwable);
     }
