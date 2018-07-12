@@ -26,22 +26,41 @@ Using LLog
 ##### Dependencies
 ```groovy
 	dependencies {
-	        implementation 'com.github.jeffreyliu8:LLog:0.0.5'
+	        implementation 'com.github.jeffreyliu8:LLog:0.0.6'
 	}
 ```
 
 A quick example is shown below on how to use it:
 
-In your Application class
+In your Application class onCreate()
 ```java
-LLog.setContext(this, "JLOG");
+        new LLog.Builder()
+                .setContext(this) // required
+                .setTag("LiuLog") // required
+                .enableBorder(true) // default true, optional
+                .enableLineInfo(true)// default true, optional
+                .enableProductionLogging(false) // default false, optional. Every time you set this to true, a puppy dies
+                .build();
 ```
 
 And actually logging:
 ```java
-LLog.d("test")
-LLog.e("error")
+        LLog.i("info")
+        LLog.d("debug")
+        LLog.e("error")
+        LLog.w("warning")
+        LLog.v("verbose")
+        LLog.wtf("wtf")
 ```
+
+07-12 14:12:48.867 16721-16721/com.askjeffreyliu.llogtester I/LiuLog: <[ info ]> @ com.askjeffreyliu.llogtester.MainActivity$onCreate$1.onClick(MainActivity.kt:36)
+07-12 14:12:48.869 16721-16721/com.askjeffreyliu.llogtester D/LiuLog: <[ debug ]> @ com.askjeffreyliu.llogtester.MainActivity$onCreate$1.onClick(MainActivity.kt:37)
+07-12 14:12:48.869 16721-16721/com.askjeffreyliu.llogtester E/LiuLog: <[ error ]> @ com.askjeffreyliu.llogtester.MainActivity$onCreate$1.onClick(MainActivity.kt:38)
+07-12 14:12:48.869 16721-16721/com.askjeffreyliu.llogtester W/LiuLog: <[ warning ]> @ com.askjeffreyliu.llogtester.MainActivity$onCreate$1.onClick(MainActivity.kt:39)
+07-12 14:12:48.869 16721-16721/com.askjeffreyliu.llogtester V/LiuLog: <[ verbose ]> @ com.askjeffreyliu.llogtester.MainActivity$onCreate$1.onClick(MainActivity.kt:40)
+07-12 14:12:48.870 16721-16721/com.askjeffreyliu.llogtester E/LiuLog: <[ wtf ]> @ com.askjeffreyliu.llogtester.MainActivity$onCreate$1.onClick(MainActivity.kt:41)
+
+
 Getting the logs, it's LiveData, see example in the ListViewModel source code
 ```java
 LiveData<List<MobileLog>> logs = LLog.getLogs();
