@@ -1,6 +1,7 @@
 # LLog
 A simple android logger that print and save logs to db.
 
+[![](https://jitpack.io/v/jeffreyliu8/LLog.svg)](https://jitpack.io/#jeffreyliu8/LLog)
 
 Why LLog
 ----------------
