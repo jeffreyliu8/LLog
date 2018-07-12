@@ -2,12 +2,10 @@
 A simple android logger that print and save logs to db.
 
 
-
-
-
 Why LLog
 ----------------
 Don't you want to have all your logs saved in sql lite db? And be able to process later on? This is your baby.
+This is based on the simple android.util.Log.
 
 Using LLog
 ----------------
