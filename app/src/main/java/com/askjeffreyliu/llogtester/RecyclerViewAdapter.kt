@@ -26,7 +26,7 @@ class RecyclerViewAdapter(private var items: List<MobileLog>?, val context: Cont
 
     // Binds each animal in the ArrayList to a view
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.myTextView.text = items!![position].id.toString() + " " + items!![position].message + " " + items!![position].logLevel
+        holder.myTextView.text = items!![position].id.toString() + " " + items!![position].message + " " + items!![position].logLevel + " " + items!![position].throwable + " " + items!![position].thread
     }
 
     fun setList(log: List<MobileLog>?) {

@@ -8,10 +8,9 @@ import com.askjeffreyliu.llog.LLog;
 
 public class MyApplication extends Application {
 
-
     @Override
     public void onCreate() {
         super.onCreate();
-        LLog.setContext(this, "JLOG");
+        LLog.setContext(this, "LiuLog", true);
     }
 }

@@ -33,8 +33,13 @@ class MainActivity : AppCompatActivity() {
         myRecyclerView.addItemDecoration(dividerItemDecoration)
 
         fab.setOnClickListener {
-            LLog.d("test")
             LLog.e("error?")
+            LLog.wtf("wtf!")
+            try {
+                throw IllegalAccessException("Hey, i am testing it")
+            } catch (e: IllegalAccessException) {
+                LLog.d("Hello %s", e)
+            }
         }
 
         fabClear.setOnClickListener {

@@ -4,6 +4,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 @Entity(tableName = "mobile_log_table")
 public class MobileLog {
@@ -23,6 +24,10 @@ public class MobileLog {
     @ColumnInfo(name = "logLevel")
     private int logLevel;
 
+    @Nullable
+    @ColumnInfo(name = "throwable")
+    private String throwable;
+
     @NonNull
     @ColumnInfo(name = "synced")
     private boolean synced;
@@ -31,10 +36,11 @@ public class MobileLog {
     @ColumnInfo(name = "timestamp")
     private long timestamp;
 
-    public MobileLog(@NonNull String message, @NonNull String thread, @NonNull int logLevel) {
+    public MobileLog(@NonNull String message, @NonNull String thread, @NonNull int logLevel, @Nullable String throwable) {
         this.message = message;
         this.thread = thread;
         this.logLevel = logLevel;
+        this.throwable = throwable;
         synced = false;
         timestamp = System.currentTimeMillis();
     }
@@ -65,13 +71,22 @@ public class MobileLog {
         this.thread = thread;
     }
 
-
+    @NonNull
     public int getLogLevel() {
         return logLevel;
     }
 
-    public void setLogLevel(int logLevel) {
+    public void setLogLevel(@NonNull int logLevel) {
         this.logLevel = logLevel;
+    }
+
+    @Nullable
+    public String getThrowable() {
+        return throwable;
+    }
+
+    public void setThrowable(@Nullable String throwable) {
+        this.throwable = throwable;
     }
 
     @NonNull
