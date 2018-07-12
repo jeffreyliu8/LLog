@@ -2,6 +2,7 @@ package com.askjeffreyliu.llog;
 
 import android.arch.lifecycle.LiveData;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.os.AsyncTask;
 import android.text.TextUtils;
 import android.util.Log;
@@ -23,6 +24,7 @@ public final class LLog {
     private static boolean mShowBox = true;
     private static boolean mShowLineInfo = true;
     private static boolean mSave = true;
+    private static boolean mIsDebug = false;
 
     private static final String PREFIX = "<[ ";
     private static final String POSTFIX = " ]>";
@@ -35,11 +37,12 @@ public final class LLog {
         mShowLineInfo = showLineInfo;
         mLogForProduction = logForProduction;
         mSave = doSave;
+        mIsDebug = (0 != (context.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE));
     }
 
     public static synchronized void v(String msg) {
         String lineInfo = getLineInfo();
-        if (BuildConfig.DEBUG || mLogForProduction) {
+        if (mIsDebug || mLogForProduction) {
             if (mShowBox) {
                 Log.v(mTag, PREFIX + msg + POSTFIX + lineInfo);
             } else {
@@ -51,7 +54,7 @@ public final class LLog {
 
     public static synchronized void v(String msg, Throwable throwable) {
         String lineInfo = getLineInfo();
-        if (BuildConfig.DEBUG || mLogForProduction) {
+        if (mIsDebug || mLogForProduction) {
             if (mShowBox) {
                 Log.v(mTag, PREFIX + msg + POSTFIX, throwable);
             } else {
@@ -63,7 +66,7 @@ public final class LLog {
 
     public static synchronized void d(String msg) {
         String lineInfo = getLineInfo();
-        if (BuildConfig.DEBUG || mLogForProduction) {
+        if (mIsDebug || mLogForProduction) {
             if (mShowBox) {
                 Log.d(mTag, PREFIX + msg + POSTFIX + lineInfo);
             } else {
@@ -75,7 +78,7 @@ public final class LLog {
 
     public static synchronized void d(String msg, Throwable throwable) {
         String lineInfo = getLineInfo();
-        if (BuildConfig.DEBUG || mLogForProduction) {
+        if (mIsDebug || mLogForProduction) {
             if (mShowBox) {
                 Log.d(mTag, PREFIX + msg + POSTFIX + lineInfo, throwable);
             } else {
@@ -87,7 +90,7 @@ public final class LLog {
 
     public static synchronized void i(String msg) {
         String lineInfo = getLineInfo();
-        if (BuildConfig.DEBUG || mLogForProduction) {
+        if (mIsDebug || mLogForProduction) {
             if (mShowBox) {
                 Log.i(mTag, PREFIX + msg + POSTFIX + lineInfo);
             } else {
@@ -99,7 +102,7 @@ public final class LLog {
 
     public static synchronized void i(String msg, Throwable throwable) {
         String lineInfo = getLineInfo();
-        if (BuildConfig.DEBUG || mLogForProduction) {
+        if (mIsDebug || mLogForProduction) {
             if (mShowBox) {
                 Log.i(mTag, PREFIX + msg + POSTFIX + lineInfo, throwable);
             } else {
@@ -111,7 +114,7 @@ public final class LLog {
 
     public static synchronized void w(String msg) {
         String lineInfo = getLineInfo();
-        if (BuildConfig.DEBUG || mLogForProduction) {
+        if (mIsDebug || mLogForProduction) {
             if (mShowBox) {
                 Log.w(mTag, PREFIX + msg + POSTFIX + lineInfo);
             } else {
@@ -123,7 +126,7 @@ public final class LLog {
 
     public static synchronized void w(String msg, Throwable throwable) {
         String lineInfo = getLineInfo();
-        if (BuildConfig.DEBUG || mLogForProduction) {
+        if (mIsDebug || mLogForProduction) {
             if (mShowBox) {
                 Log.w(mTag, PREFIX + msg + POSTFIX + lineInfo, throwable);
             } else {
@@ -134,7 +137,7 @@ public final class LLog {
     }
 
     public static synchronized void w(Throwable throwable) {
-        if (BuildConfig.DEBUG || mLogForProduction) {
+        if (mIsDebug || mLogForProduction) {
             Log.w(mTag, throwable);
         }
         saveLog(null, WARN, throwable);
@@ -142,7 +145,7 @@ public final class LLog {
 
     public static synchronized void e(String msg) {
         String lineInfo = getLineInfo();
-        if (BuildConfig.DEBUG || mLogForProduction) {
+        if (mIsDebug || mLogForProduction) {
             if (mShowBox) {
                 Log.e(mTag, PREFIX + msg + POSTFIX + lineInfo);
             } else {
@@ -154,7 +157,7 @@ public final class LLog {
 
     public static synchronized void e(String msg, Throwable throwable) {
         String lineInfo = getLineInfo();
-        if (BuildConfig.DEBUG || mLogForProduction) {
+        if (mIsDebug || mLogForProduction) {
             if (mShowBox) {
                 Log.e(mTag, PREFIX + msg + POSTFIX + lineInfo, throwable);
             } else {
@@ -166,7 +169,7 @@ public final class LLog {
 
     public static synchronized void wtf(String msg) {
         String lineInfo = getLineInfo();
-        if (BuildConfig.DEBUG || mLogForProduction) {
+        if (mIsDebug || mLogForProduction) {
             if (mShowBox) {
                 Log.wtf(mTag, PREFIX + msg + POSTFIX + lineInfo);
             } else {
@@ -178,7 +181,7 @@ public final class LLog {
 
     public static synchronized void wtf(String msg, Throwable throwable) {
         String lineInfo = getLineInfo();
-        if (BuildConfig.DEBUG || mLogForProduction) {
+        if (mIsDebug || mLogForProduction) {
             if (mShowBox) {
                 Log.wtf(mTag, PREFIX + msg + POSTFIX + lineInfo, throwable);
             } else {
@@ -189,7 +192,7 @@ public final class LLog {
     }
 
     public static synchronized void wtf(Throwable throwable) {
-        if (BuildConfig.DEBUG || mLogForProduction) {
+        if (mIsDebug || mLogForProduction) {
             Log.wtf(mTag, throwable);
         }
         saveLog(null, ASSERT, throwable);
