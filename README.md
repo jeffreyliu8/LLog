@@ -30,7 +30,7 @@ Using LLog
 
 A quick example is shown below on how to use it:
 
-In your Application class onCreate()
+In your Application class onCreate() (java)
 ```java
         new LLog.Builder()
                 .setContext(this) // required
@@ -42,8 +42,8 @@ In your Application class onCreate()
                 .build();
 ```
 
-And some basic logging usage:
-```java
+And some basic logging usage(kotlin):
+```kotlin
         LLog.i("info")
         LLog.d("debug")
         LLog.e("error")
@@ -55,17 +55,17 @@ And some basic logging usage:
 ![Output sample](https://github.com/jeffreyliu8/LLog/blob/master/screenshot.png)
 
 
-Getting the logs, it's LiveData, see example in the ListViewModel source code
+Getting the logs, it's LiveData, see example in the ListViewModel source code(java)
 ```java
 LiveData<List<MobileLog>> logs = LLog.getLogs();
 ```
 
-Basic logging sql column include id, msg, thread name, log level, time stamp, check MobileLog class
+Basic logging sql column include id, msg, thread name, log level, time stamp, check MobileLog class(kotlin)
 ```kotlin
 val log: MobileLog = items!![position]
 holder.myTextView.text = log.id.toString() + " " + log.message + " " + log.logLevel + " " + log.throwable + " " + log.thread
 ```
-Delete all the logs in database
+Delete all the logs in database(java)
 ```java
 LLog.clearLogs()
 ```
