@@ -11,6 +11,13 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        LLog.setContext(this, "LiuLog", true);
+
+        new LLog.Builder()
+                .setContext(this) // required
+                .setTag("LiuLog") // required
+                .enableBorder(false) // default true, optional
+                .enableLineInfo(true)// default true, optional
+                .enableProductionLogging(false) // default false, optional. Every time you set this to true, a puppy dies
+                .build();
     }
 }
