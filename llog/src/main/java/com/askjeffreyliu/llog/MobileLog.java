@@ -12,7 +12,7 @@ public class MobileLog {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    @NonNull
+    @Nullable
     @ColumnInfo(name = "message")
     private String message;
 
@@ -36,7 +36,7 @@ public class MobileLog {
     @ColumnInfo(name = "timestamp")
     private long timestamp;
 
-    public MobileLog(@NonNull String message, @NonNull String thread, @NonNull int logLevel, @Nullable String throwable) {
+    public MobileLog(@Nullable String message, @NonNull String thread, @NonNull int logLevel, @Nullable String throwable) {
         this.message = message;
         this.thread = thread;
         this.logLevel = logLevel;
@@ -53,12 +53,12 @@ public class MobileLog {
         this.id = id;
     }
 
-    @NonNull
+    @Nullable
     public String getMessage() {
         return message;
     }
 
-    public void setMessage(@NonNull String message) {
+    public void setMessage(@Nullable String message) {
         this.message = message;
     }
 

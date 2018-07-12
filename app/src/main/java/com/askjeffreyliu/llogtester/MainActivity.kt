@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             try {
                 throw IllegalAccessException("Hey, i am testing it")
             } catch (e: IllegalAccessException) {
-                LLog.e("Got exception", e)
+                LLog.wtf(e)
             }
         }
 

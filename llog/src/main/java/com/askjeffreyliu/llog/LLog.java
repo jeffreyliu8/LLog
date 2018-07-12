@@ -140,6 +140,13 @@ public final class LLog {
         saveLog(msg, WARN, throwable);
     }
 
+    public static synchronized void w(Throwable throwable) {
+        if (BuildConfig.DEBUG || mLogForProduction) {
+            Log.w(mTag, throwable);
+        }
+        saveLog(null, WARN, throwable);
+    }
+
     public static synchronized void e(String msg) {
         if (BuildConfig.DEBUG || mLogForProduction) {
             if (mShowBox) {
@@ -182,6 +189,13 @@ public final class LLog {
             }
         }
         saveLog(msg, ASSERT, throwable);
+    }
+
+    public static synchronized void wtf(Throwable throwable) {
+        if (BuildConfig.DEBUG || mLogForProduction) {
+            Log.wtf(mTag, throwable);
+        }
+        saveLog(null, ASSERT, throwable);
     }
 
     private static void saveLog(final String msg, final int logLevel, final Throwable throwable) {
